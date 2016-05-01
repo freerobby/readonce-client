@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://readonce-production.herokuapp.com/status/a2b7385319449527d87468a3833365c4
+    uri: https://readonce-production.herokuapp.com/status/a2b7385319449527d87468a3833365c4
     body:
       encoding: US-ASCII
       string: ''

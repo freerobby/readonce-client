@@ -8,7 +8,7 @@ describe Readonce do
     it 'creates a readonce file' do
       VCR.use_cassette 'create-file' do
         f = ReadOnce.from_data('dummydata')
-        expect(f.read_url).to eql('http://readonce-production.herokuapp.com/3a84c711bcb5ff2afaa23e212f60bb04')
+        expect(f.read_url).to eql('https://readonce-production.herokuapp.com/3a84c711bcb5ff2afaa23e212f60bb04')
       end
     end
   end

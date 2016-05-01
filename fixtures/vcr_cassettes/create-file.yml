@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://readonce-production.herokuapp.com/create
+    uri: https://readonce-production.herokuapp.com/create
     body:
       encoding: UTF-8
       string: dummydata
