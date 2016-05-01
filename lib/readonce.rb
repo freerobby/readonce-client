@@ -12,7 +12,7 @@ class ReadOnce
   end
 
   def self.from_data(data)
-    response = HTTParty.post "#{BASE_URI}/create", body: data
+    response = HTTParty.post "#{BASE_URI}/create", body: data, headers: {'Content-type' => 'text/plain'}
     r = ReadOnce.new
     r.instance_variable_set(:@key, response.body)
     r
