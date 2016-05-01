@@ -24,7 +24,7 @@ class ReadOnce
 
   def exists?
     response = HTTParty.get "#{BASE_URI}/status/#{key}"
-    response.code == 200 ? true : false
+    response.code == 200
   end
 
   def block_while_exists
