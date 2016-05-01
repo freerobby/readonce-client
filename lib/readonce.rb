@@ -3,7 +3,7 @@ require 'readonce/version'
 require 'httparty'
 
 class ReadOnce
-  BASE_URI = 'http://readonce-production.herokuapp.com'
+  BASE_URI = 'https://readonce-production.herokuapp.com'
 
   def self.from_key(key)
     r = ReadOnce.new
