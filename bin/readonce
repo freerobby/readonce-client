@@ -2,13 +2,41 @@
 
 require 'rubygems'
 require 'bundler'
-
 Bundler.setup
-
 require 'readonce'
 
-data = $stdin.read
-
-obj = ReadOnce.new(data)
-
-puts obj.read_url
+# No arguments: we stash a file, nothing else.
+if ARGV.count == 0
+  data = $stdin.read
+  obj = ReadOnce.from_data(data)
+  puts obj.read_url
+elsif ARGV.count == 1 && (ARGV[0] == '-h' || ARGV[0] == '--help')
+  puts 'readonce -- provides a unique, one-time-use URL to share private data with someone.'
+  puts 'Common uses:'
+  puts '  readonce < myfile.txt                   # Share a file'
+  puts '  echo "The password is foo" | readonce   # Share a line of text'
+  puts '  readonce -w < myfile.txt                # Share a file, wait to exit until it is accessed'
+  puts '  readonce -w <key>                       # Wait to exit until file with specified key is accessed'
+  puts '  readonce -s <key>                       # Check the status of a file with specified key'
+elsif ARGV.count == 1 && ARGV[0] == '-w' # Stash file, block until gone.
+  data = $stdin.read
+  obj = ReadOnce.from_data(data)
+  puts obj.read_url
+  puts 'Waiting for file to be accessed...'
+  obj.block_while_exists
+  puts "File accessed at #{Time.zone.now} (local time)."
+elsif ARGV.count == 2 && ARGV[0] == '-w' # Block until gone.
+  obj = ReadOnce.from_key(ARGV[1])
+  puts 'Waiting for file to be accessed...'
+  obj.block_while_exists
+  puts "File accessed at #{Time.zone.now} (local time)."
+elsif ARGV.count == 2 && ARGV[0] == '-s' # Get status of file
+  obj = ReadOnce.from_key(ARGV[1])
+  if obj.exists?
+    puts 'File has not been accessed.'
+  else
+    puts 'File does not exist (or has been accessed).'
+  end
+else
+  puts 'Invalid options. See readonce --help for details.'
+end
