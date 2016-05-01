@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler'
+
+Bundler.setup
+
+require 'readonce'
+
+data = $stdin.read
+
+obj = ReadOnce.new(data)
+
+puts obj.read_url
