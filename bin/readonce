@@ -22,12 +22,12 @@ elsif ARGV.count == 1 && ARGV[0] == '-w' # Stash file, block until gone.
   puts obj.read_url
   puts 'Waiting for file to be accessed...'
   obj.block_while_exists
-  puts "File accessed at #{Time.zone.now} (local time)."
+  puts "File accessed at #{Time.now} (local time)."
 elsif ARGV.count == 2 && ARGV[0] == '-w' # Block until gone.
   obj = ReadOnce.from_key(ARGV[1])
   puts 'Waiting for file to be accessed...'
   obj.block_while_exists
-  puts "File accessed at #{Time.zone.now} (local time)."
+  puts "File accessed at #{Time.now} (local time)."
 elsif ARGV.count == 2 && ARGV[0] == '-s' # Get status of file
   obj = ReadOnce.from_key(ARGV[1])
   if obj.exists?
