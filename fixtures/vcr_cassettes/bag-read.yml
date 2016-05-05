@@ -2,20 +2,20 @@
 http_interactions:
 - request:
     method: get
-    uri: https://readonce-production.herokuapp.com/status/foobarfake
+    uri: https://readonce-production.herokuapp.com/status/3df816347dc99e28c4159885f8757dcf
     body:
       encoding: US-ASCII
       string: ''
     headers: {}
   response:
     status:
-      code: 404
-      message: 'Not Found '
+      code: 200
+      message: 'OK '
     headers:
       content-type:
       - text/plain;charset=utf-8
       content-length:
-      - '9'
+      - '66'
       x-content-type-options:
       - nosniff
       server:
@@ -26,7 +26,7 @@ http_interactions:
       - close
     body:
       encoding: UTF-8
-      string: Not found
+      string: '{"accessed_at":"2016-05-04 23:56:36 -0400","accessed_by_ip":"::1"}'
     http_version: '1.1'
   recorded_at: Thu, 05 May 2016 03:57:46 GMT
 recorded_with: VCR 3.0.1

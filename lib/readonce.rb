@@ -22,13 +22,23 @@ class ReadOnce
     "#{BASE_URI}/#{key}"
   end
 
+  def read?
+    response = HTTParty.get "#{BASE_URI}/status/#{key}"
+    !JSON.parse(response.body)['accessed_at'].nil?
+  end
+
   def exists?
     response = HTTParty.get "#{BASE_URI}/status/#{key}"
     response.code == 200
   end
 
-  def block_while_exists
-    while exists? do
+  def status
+    response = HTTParty.get "#{BASE_URI}/status/#{key}"
+    JSON.parse(response.body)
+  end
+
+  def block_until_read
+    until read? do
       sleep 1
     end
   end
