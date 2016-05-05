@@ -6,7 +6,9 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ''
-    headers: {}
+    headers:
+      user-agent:
+      - ReadOnce Gem/1.0.8
   response:
     status:
       code: 404

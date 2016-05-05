@@ -3,7 +3,10 @@ require 'readonce/version'
 require 'httparty'
 
 class ReadOnce
+  include HTTParty
   BASE_URI = 'https://readonce-production.herokuapp.com'
+  USER_AGENT_HEADER = {'User-Agent' => "ReadOnce Gem/#{Readonce::VERSION}"}
+  base_uri BASE_URI
 
   def self.from_key(key)
     r = ReadOnce.new
@@ -12,7 +15,7 @@ class ReadOnce
   end
 
   def self.from_data(data)
-    response = HTTParty.post "#{BASE_URI}/create", body: data, headers: {'Content-type' => 'text/plain'}
+    response = post '/create', body: data, headers: {'Content-type' => 'text/plain'}.merge(USER_AGENT_HEADER)
     r = ReadOnce.new
     r.instance_variable_set(:@key, response.body)
     r
@@ -23,17 +26,17 @@ class ReadOnce
   end
 
   def read?
-    response = HTTParty.get "#{BASE_URI}/status/#{key}"
+    response = self.class.get "/status/#{key}", headers: USER_AGENT_HEADER
     !JSON.parse(response.body)['accessed_at'].nil?
   end
 
   def exists?
-    response = HTTParty.get "#{BASE_URI}/status/#{key}"
+    response = self.class.get "/status/#{key}", headers: USER_AGENT_HEADER
     response.code == 200
   end
 
   def status
-    response = HTTParty.get "#{BASE_URI}/status/#{key}"
+    response = self.class.get "/status/#{key}", headers: USER_AGENT_HEADER
     JSON.parse(response.body)
   end
 
