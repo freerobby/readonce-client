@@ -27,7 +27,7 @@ class ReadOnce
   end
 
   def self.from_data(data)
-    self.exit_if_gem_outdated!
+    self.class.exit_if_gem_outdated!
     response = post '/create', body: data, headers: {'Content-type' => 'text/plain'}.merge(USER_AGENT_HEADER)
     r = ReadOnce.new
     r.instance_variable_set(:@key, response.body)
@@ -39,19 +39,19 @@ class ReadOnce
   end
 
   def read?
-    self.exit_if_gem_outdated!
+    self.class.exit_if_gem_outdated!
     response = self.class.get "/status/#{key}", headers: USER_AGENT_HEADER
     !JSON.parse(response.body)['accessed_at'].nil?
   end
 
   def exists?
-    self.exit_if_gem_outdated!
+    self.class.exit_if_gem_outdated!
     response = self.class.get "/status/#{key}", headers: USER_AGENT_HEADER
     response.code == 200
   end
 
   def status
-    self.exit_if_gem_outdated!
+    self.class.exit_if_gem_outdated!
     response = self.class.get "/status/#{key}", headers: USER_AGENT_HEADER
     JSON.parse(response.body)
   end
