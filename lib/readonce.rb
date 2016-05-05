@@ -27,7 +27,7 @@ class ReadOnce
   end
 
   def self.from_data(data)
-    self.class.exit_if_gem_outdated!
+    self.exit_if_gem_outdated!
     response = post '/create', body: data, headers: {'Content-type' => 'text/plain'}.merge(USER_AGENT_HEADER)
     r = ReadOnce.new
     r.instance_variable_set(:@key, response.body)
