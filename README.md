@@ -31,5 +31,5 @@ Or, you can have readonce block until it has been accessed, so you can see exact
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The library is released under the [MIT License](http://opensource.org/licenses/MIT).
 
